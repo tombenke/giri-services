@@ -13,8 +13,6 @@ export const postSystems = container => (data, cb) => {
     const newSystem = body
     const { host } = headers
 
-    console.log(JSON.stringify(data, null, 2))
-    container.logger.debug(JSON.stringify(newSystem))
     if (_.has(newSystem, 'id')) {
         // The new system object has ID
         if (findSystemById(newSystem.id) !== null) {

@@ -5,6 +5,11 @@ import { testSystems } from './fixtures/'
 
 describe('systems.systems', () => {
 
+    beforeEach(done => {
+        deleteAllSystems()
+        done()
+    })
+
     const uploadTestSystems = () => {
         _.map(testSystems, system => upsertSystem(system))
     }
@@ -22,27 +27,23 @@ describe('systems.systems', () => {
     })
 
     it('#findAllSystems - when no systems are defined', done => {
-        deleteAllSystems()
         expect(findAllSystems()).to.eql([])
         done()
     })
 
     it('#findAllSystems - when systems are defined', done => {
-        deleteAllSystems()
         uploadTestSystems()
         expect(findAllSystems()).to.eql(testSystems)
         done()
     })
 
     it('#findSystemById - when systems are defined', done => {
-        deleteAllSystems()
         uploadTestSystems()
         _.map(testSystems, testSystem => expect(findSystemById(testSystem.id)).to.eql(testSystem))
         done()
     })
 
     it('#findSystemById - when no systems are defined', done => {
-        deleteAllSystems()
         _.map(testSystems, testSystem => expect(findSystemById(testSystem.id)).to.eql(null))
         done()
     })
