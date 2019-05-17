@@ -1,20 +1,17 @@
 giri-services
-===========
+=============
 
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 [![npm version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coveralls][BadgeCoveralls]][Coveralls]
 
 ## About
 
-Project archetype for Command Line tools using Node.js
+The backend services of the giri system.
 
-It provides only one simple command, that is: `echo`, that echoes back it s only one parameter:
+This is a standalone application that holds the REST endpoint implementations of the giri backend services.
 
-```bash
-    giri-services echo -t Hi
-```
 
 ## Installation
 
@@ -24,61 +21,44 @@ Run the install command:
 
 Check if giri-services is properly installed:
 
+```bash
     $ giri-services --help
 
+    Options:
+      --version        Show version number                                 [boolean]
+      --config, -c     The name of the configuration file    [default: "config.yml"]
+      --logLevel, -l   The log level                      [string] [default: "info"]
+      --logFormat, -t  The log (`plainText` or `json`)
+                                                     [string] [default: "plainText"]
+      --help           Show help                                           [boolean]
+```
+
+## Configuration
+
+TODO
+
+## Usage
+
+Start the application:
+
+```bash
+    $ giri-services
+    2019-05-17T06:22:06.090Z [giri-services@3.2.0] info: Start up pdmsHemera
+    2019-05-17T06:22:07.663Z [giri-services@3.2.0] info: hemera: "Connected!"
+    2019-05-17T06:22:07.668Z [giri-services@3.2.0] info: Hemera is connected
+    2019-05-17T06:22:07.670Z [giri-services@3.2.0] info: Start up service adapter
+    2019-05-17T06:22:07.678Z [giri-services@3.2.0] info: hemera: {"topic":"/systems","method":"get","uri":"/systems"}
+    2019-05-17T06:22:07.684Z [giri-services@3.2.0] info: hemera: {"topic":"/systems","method":"post","uri":"/systems"}
+    2019-05-17T06:22:07.685Z [giri-services@3.2.0] info: hemera: {"topic":"/systems","method":"delete","uri":"/systems"}
+    2019-05-17T06:22:07.688Z [giri-services@3.2.0] info: App runs the jobs...
+```
+
+THe application starts and subsribes to NATS topic. When incoming requests will be forwarded through these topics, the services will respond.
 
 ## Get Help
 
 To learn more about the tool visit the [homepage](http://tombenke.github.io/giri-services/).
 
-
-## Generate new CLI tool from this archetype
-
-This project can be used to generate a new CLI project too,
-using the [kickoff](https://github.com/tombenke/kickoff) utility.
-
-In order to generate a new CLI project, do the following:
-
-1. Install the [kickoff](https://github.com/tombenke/kickoff) utility, if you have not installed yet:
-
-```bash
-    npm install -g kickoff
-```
-
-2. Create a new CLI project:
-
-```bash
-    kickoff -s tombenke/giri-services -d new-cli-app
-```
-
-3. Finish the configuration of the new project, test and build it:
-
-```bash
-    cd new-cli-app
-    sh ./.kickoff.sh
-    npm install
-    npm run test
-    npm run build
-```
-
-4. Check if it works properly:
-
-```bash
-    node dist/app.js echo --text Hi
-```
-
-You should see something like this:
-```bash
-    info: echo.execute => Hi
-```
-
-5. Now the project is ready, so you can extend it, according to your needs.
-
-
-## References
-
-- [npac](http://tombenke.github.io/npac).
-- [npac-example-cli](http://tombenke.github.io/npac-example-cli).
 
 [npm-badge]: https://badge.fury.io/js/giri-services.svg
 [npm-url]: https://badge.fury.io/js/giri-services
