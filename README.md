@@ -35,7 +35,7 @@ Check if giri-services is properly installed:
 
 ## Configuration
 
-TODO
+TODO: Document the config parameters
 
 ## Usage
 
@@ -53,11 +53,11 @@ Start the application:
     2019-05-17T06:22:07.688Z [giri-services@3.2.0] info: App runs the jobs...
 ```
 
-THe application starts and subsribes to NATS topic. When incoming requests will be forwarded through these topics, the services will respond.
+The application starts and subsribes to NATS topic. When incoming requests will be forwarded through these topics, the services will respond.
 
 ## Get Help
 
-To learn more about the tool visit the [homepage](http://tombenke.github.io/giri-services/).
+TODO: Write and publish the service docs
 
 
 [npm-badge]: https://badge.fury.io/js/giri-services.svg
