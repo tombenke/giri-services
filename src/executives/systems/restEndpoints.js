@@ -1,11 +1,12 @@
 /**
  * The REST API service endpoint implementations of the `systems` executive.
  *
- * This module is responsible for registering the service endpoints during the startup process.
+ * These functions must be registered during the startup phase of the application, via the `startup()` functions of the executive, and they will respond to the incoming API calls.
  *
- * These functions must be registered during the startup phase of the application, via the `startup()` functions of the executive.
+ * The responses are objects, that hold the complete information that is required by the `npac-webserver-adapter` middleware to make a correct HTTP response to the client, including `{ headers: {...}, status: ..., body: ... }`. This response object must be placed into the second parameter of the `cb` callback function, and `null` value as the first parameter.
+ * NOTE: In case of the service wants to respond with a HTTP-level error, the callback also has to be called with `null`, and the response object will contain the error code and error content body.
  *
- * @module systems.restEndpoints
+ * @module executives/systems/restEndpoints
  */
 
 import defaults from './config'
@@ -17,18 +18,37 @@ import { findAllSystems, findSystemById, upsertSystem, deleteAllSystems } from '
 /**
  * Serve the `GET /systems` API call.
  *
- * This function is registered by the `startup()` function of the `systems` executive, to respond the incoming API calls. The function retrieves the list of systems, then return a response object, that holds the complete information that is required by the `npac-webserver-adapter` middleware to make a correct HTTP response to the client, including `{ headers: {...}, status: ..., body: ... }`. This response object must be placed into the second parameter of the `cb` callback function, and `null` value as the first parameter.
- * NOTE: In case of the service wants to respond with a HTTP-level error, the callback also has to be called with `null`, and the response object will contain the error code and error content body.
+ * The function retrieves and responses wth the list of systems.
  *
  * @arg {Object} data - The complete data payload of the incoming call
- * @arg {Function} cb - The error-first callback function
+ * @arg {Function} cb - The error-first callback function that will be called either with the complete success response or with the response that describe the error and contains the corresponding error status code.
  *
  * @function
  */
 export const getSystems = container => (data, cb) => wrapOkResponse(findAllSystems, cb)
 
+/**
+ * Serve the `DELETE /systems` API call.
+ *
+ * The function deletes all systems.
+ *
+ * @arg {Object} data - The complete data payload of the incoming call
+ * @arg {Function} cb - The error-first callback function that will be called either with the complete success response or with the response that describe the error and contains the corresponding error status code.
+ *
+ * @function
+ */
 export const deleteSystems = container => (data, cb) => wrapEmptyResponse(deleteAllSystems, cb)
 
+/**
+ * Serve the `POST /systems` API call.
+ *
+ * The function creates a new system.
+ *
+ * @arg {Object} data - The complete data payload of the incoming call
+ * @arg {Function} cb - The error-first callback function that will be called either with the complete success response or with the response that describe the error and contains the corresponding error status code.
+ *
+ * @function
+ */
 export const postSystems = container => (data, cb) => {
     const { headers, body } = data.request
     const newSystem = body

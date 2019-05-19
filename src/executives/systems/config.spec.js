@@ -11,7 +11,7 @@ after(done => {
 describe('systems.config', () => {
     it('#defaults', done => {
         const expected = {
-            service: {}
+            systems: {}
         }
 
         const defaults = config

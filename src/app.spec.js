@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import { removeSignalHandlers, catchExitSignals } from 'npac'
 
-import { startApp } from './index'
+import { startApp } from './app'
 
 describe('app', () => {
     let sandbox

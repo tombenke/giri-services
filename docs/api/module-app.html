@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: restEndpoints</title>
+    <title>JSDoc: Module: app</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: restEndpoints</h1>
+    <h1 class="page-title">Module: app</h1>
 
     
 
@@ -28,18 +28,34 @@
 
 <header>
     
+        
+            
+        
+    
 </header>
 
 <article>
     <div class="container-overview">
     
         
-            <div class="description"><p>The REST API service endpoint implementations of the <code>systems</code> executive.</p>
-<p>This module is responsible for registering the service endpoints during the startup process.</p>
-<p>These functions must be registered during the startup phase of the application, via the <code>startup()</code> functions of the executive.</p></div>
+            <div class="description"><p>This module contains the <code>startApp()</code> function that is the main function of the application.</p></div>
         
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -78,6 +94,24 @@
 </dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
     
     </div>
@@ -105,7 +139,7 @@
     
 
     
-    <h4 class="name" id=".getSystems"><span class="type-signature">(static) </span>getSystems<span class="signature">(data, cb)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".startApp"><span class="type-signature">(static) </span>startApp<span class="signature">(argv, cb)</span><span class="type-signature"></span></h4>
     
 
     
@@ -113,9 +147,9 @@
 
 
 <div class="description">
-    <p>Serve the <code>GET /systems</code> API call.</p>
-<p>This function is registered by the <code>startup()</code> function of the <code>systems</code> executive, to respond the incoming API calls. The function retrieves the list of systems, then return a response object, that holds the complete information that is required by the <code>npac-webserver-adapter</code> middleware to make a correct HTTP response to the client, including <code>{ headers: {...}, status: ..., body: ... }</code>. This response object must be placed into the second parameter of the <code>cb</code> callback function, and <code>null</code> value as the first parameter.<br>
-NOTE: In case of the service wants to respond with a HTTP-level error, the callback also has to be called with <code>null</code>, and the response object will contain the error code and error content body.</p>
+    <p>Start the application</p>
+<p>The main function of the application.</p>
+<p>The function sets up the configuration, the startup and terminator functions, and an empty list of jobs, then executes the startup process of the container.</p>
 </div>
 
 
@@ -151,7 +185,7 @@ NOTE: In case of the service wants to respond with a HTTP-level error, the callb
 
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>argv</code></td>
             
 
             <td class="type">
@@ -167,7 +201,7 @@ NOTE: In case of the service wants to respond with a HTTP-level error, the callb
 
             
 
-            <td class="description last"><p>The complete data payload of the incoming call</p></td>
+            <td class="description last"><p>The command line arguments of the application. Default value: <code>process.argv</code>.</p></td>
         </tr>
 
     
@@ -190,7 +224,7 @@ NOTE: In case of the service wants to respond with a HTTP-level error, the callb
 
             
 
-            <td class="description last"><p>The error-first callback function</p></td>
+            <td class="description last"><p>An error-first callback function which (if not <code>null</code>, then will be called, when the application successfully finishes its execution. Default value is <code>null</code>.</p></td>
         </tr>
 
     
@@ -272,7 +306,7 @@ NOTE: In case of the service wants to respond with a HTTP-level error, the callb
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config.html">config</a></li><li><a href="module-systems.html">systems</a></li><li><a href="systems.module_index.html">index</a></li><li><a href="systems.module_restEndpoints.html">restEndpoints</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-config.html">config</a></li><li><a href="module-executives_commons.html">executives/commons</a></li><li><a href="module-executives_systems_config.html">executives/systems/config</a></li><li><a href="module-executives_systems_index.html">executives/systems/index</a></li><li><a href="module-executives_systems_restEndpoints.html">executives/systems/restEndpoints</a></li><li><a href="module-executives_systems_systems.html">executives/systems/systems</a></li><li><a href="module-start.html">start</a></li></ul>
 </nav>
 
 <br class="clear">

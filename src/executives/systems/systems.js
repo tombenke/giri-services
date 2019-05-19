@@ -1,11 +1,10 @@
 /**
  * The `systems` implementation
  *
- * Thi is the implementation of system management operations.
+ * This is the implementation of system management operations.
  *
- * @module systems
+ * @module executives/systems/systems
  */
-
 import _ from 'lodash'
 
 /**

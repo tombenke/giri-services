@@ -12,7 +12,7 @@ import path from 'path'
 import thisPackage from '../package.json'
 
 /**
- * The default configuration
+ * The default configuration of the application
  *
  * @property {String} app.name - The name of the application
  * @property {String} app.version - The version of the application

@@ -5,9 +5,8 @@
  *
  * This module holds the implementation of `startup()` and `shutdown()` functions of the executive, that are responsible for doing the maintenance functions during the shutdown process of the application, e.g. registering service endpoints, initializing/closing database connections, and so on.
  *
- * @module systems.index
+ * @module executives/systems/index
  */
-
 import defaults from './config'
 import _ from 'lodash'
 import { getSystems, postSystems, deleteSystems } from './restEndpoints'
