@@ -1,7 +1,7 @@
 {
   "name": "giri-services",
   "description": "The backend services of the giri system",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "keywords": [
     "cli",
     "util",
@@ -26,7 +26,7 @@
     "README.md"
   ],
   "bin": {
-    "giri-services": "./dist/app.js"
+    "giri-services": "./dist/start.js"
   },
   "dependencies": {
     "lodash": "4.17.11",
