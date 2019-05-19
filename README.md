@@ -71,7 +71,7 @@ Define the URI of the NATS server used by the pdms adapter:
 - Default value: `"nats://demo.nats.io:4222"`.
 
 Define the NATS timeout value:
-- CLI parameter: TODO.
+- CLI parameter: N.A.
 - Environment: `PDMS_TIMEOUT`.
 - Config object property: `pdms.timeout`.
 - Default value: `2000`.
