@@ -18,10 +18,10 @@ module.exports = {
     },
     configFileName: 'config.yml',
     logger: {
-        level: process.env.NCLI_ARCHETYPE_LOG_LEVEL || 'info',
+        level: process.env.LOG_LEVEL || 'info',
         transports: {
             console: {
-                format: process.env.NCLI_ARCHETYPE_LOG_FORMAT || 'plainText' // 'plainText' or 'json'
+                format: process.env.LOG_FORMAT || 'plainText' // 'plainText' or 'json'
             }
         }
     },

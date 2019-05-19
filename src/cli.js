@@ -13,6 +13,12 @@ const parse = (defaults, processArgv = process.argv) => {
             desc: 'The name of the configuration file',
             default: defaults.configFileName
         })
+        .option('dumpConfig', {
+            alias: 'd',
+            desc: 'Print the effective configuration object to the console',
+            type: 'boolean',
+            default: false
+        })
         .option('logLevel', {
             alias: 'l',
             desc: 'The log level',
@@ -25,6 +31,12 @@ const parse = (defaults, processArgv = process.argv) => {
             type: 'string',
             default: defaults.logger.transports.console.format
         })
+        .option('natsUri', {
+            alias: 'n',
+            desc: 'NATS server URI used by the pdms adapter.',
+            type: 'string',
+            default: defaults.pdms.natsUri
+        })
         .demandOption([])
         .showHelpOnFail(false, 'Specify --help for available options')
         .help()
@@ -33,12 +45,13 @@ const parse = (defaults, processArgv = process.argv) => {
     const results = {
         command: {
             name: 'server',
-            type: 'async', // sync | async
+            type: 'async',
             args: {
             }
         },
         cliConfig: {
             configFileName: argv.config,
+            dumpConfig: argv.dumpConfig,
             logger: {
                 level: argv.logLevel,
                 transports: {
@@ -46,6 +59,9 @@ const parse = (defaults, processArgv = process.argv) => {
                         format: argv.logFormat
                     }
                 }
+            },
+            pdms: {
+                natsUri: argv.natsUri
             }
         }
     }

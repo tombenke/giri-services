@@ -8,9 +8,9 @@ giri-services
 
 ## About
 
-The backend services of the giri system.
+This application provides the backend services of the giri system.
 
-This is a standalone application that holds the REST endpoint implementations of the giri backend services.
+It is a standalone application that holds the REST endpoint implementations of the giri backend services.
 
 
 ## Installation
@@ -35,7 +35,49 @@ Check if giri-services is properly installed:
 
 ## Configuration
 
-TODO: Document the config parameters
+#### General server parameters
+
+`giri-services` can be configured via:
+- configuration file,
+- environment variables,
+- command line arguments,
+- the combination of these above.
+
+Dump the effective configuration object, before start:
+- CLI parameter: `-d [true]`, or `--dumpConfig [true]`.
+
+#### Logging
+
+Set the log level of the server and its internal components:
+- CLI parameter: `-l <level>`, or `logLevel <level>`
+- Environment: `LOG_LEVEL`.
+- Config object property: `logger.level`.
+- Possible values: `info`, `debug`, `warn`, `error`.
+- Default value: `info`.
+
+Set the log format of the server and its internal components:
+- CLI parameter: `-t <format>`, or `--logFormat <format>`.
+- Environment: `LOG_FORMAT`.
+- Config object property: `logger.transports.console.format`.
+- Possible values: `plainText`, `json`.
+- Default value: `plainText`.
+
+#### PDMS (NATS) Gateway
+
+Define the URI of the NATS server used by the pdms adapter:
+- CLI parameter: `-n <nats-uri>`, or `--natsUri <nats-uri>`.
+- Environment: `PDMS_NATS_URI`.
+- Config object parameter: `pdms.natsUri`.
+- Default value: `"nats://demo.nats.io:4222"`.
+
+Define the NATS timeout value:
+- CLI parameter: TODO.
+- Environment: `PDMS_TIMEOUT`.
+- Config object property: `pdms.timeout`.
+- Default value: `2000`.
+
+See [npac-pdms-hemera-adapter](https://www.npmjs.com/package/npac-pdms-hemera-adapter) for further details.
+
 
 ## Usage
 
