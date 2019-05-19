@@ -1,7 +1,7 @@
 {
   "name": "giri-services",
   "description": "The backend services of the giri system",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "cli",
     "util",
