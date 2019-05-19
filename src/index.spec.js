@@ -1,5 +1,4 @@
 import sinon from 'sinon'
-import { expect } from 'chai'
 import { removeSignalHandlers, catchExitSignals } from 'npac'
 
 import { startApp } from './index'
@@ -28,5 +27,4 @@ describe('app', () => {
             process.kill(process.pid, 'SIGTERM')
         })
     })
-
 })

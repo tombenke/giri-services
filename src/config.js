@@ -1,15 +1,24 @@
+/**
+ * The configuration parameters module of the webserver adapter.
+ *
+ * The property values of this object will be resolved during the startup process.
+ * This object will appear as the default setup within the `container.config` object during the startup process, when the `startup` function of this adapter is called.
+ *
+ * In order to change the values of the configuration parameters, use either the corresponding environment variables, or merge your config object, with this default config setup.
+ *
+ * @module config
+ */
 import path from 'path'
 import thisPackage from '../package.json'
+
 /**
- * The default configuration:
+ * The default configuration
  *
- *  {
- *      app: {
- *          name: {String},             // The name of the generator tool
- *          version: {String}           // The version of the generator tool
- *      },
- *      configFileName: {String},       // The name of the config file '.rest-tool.yml',
- *      logLevel: {String},             // The log level: (info | warn | error | debug)
+ * @property {String} app.name - The name of the application
+ * @property {String} app.version - The version of the application
+ * @property {String} configFileName - The name of the config file. Default: `config.yml`
+ * @property {String} logger.level - The log level: (`info` | `warn` | `error` | `debug`). Env. var.: `LOG_LEVEL`.
+ * @property {String} logger.transport.console.format - The format of the log. Either `plainText` or `json`. Env. var.: `LOG_FORMAT`
  */
 module.exports = {
     app: {
@@ -17,17 +26,14 @@ module.exports = {
         version: thisPackage.version
     },
     configFileName: 'config.yml',
+
     logger: {
         level: process.env.LOG_LEVEL || 'info',
         transports: {
             console: {
-                format: process.env.LOG_FORMAT || 'plainText' // 'plainText' or 'json'
+                format: process.env.LOG_FORMAT || 'plainText'
             }
         }
     },
     installDir: path.resolve('./')
-    // Use values from environment variables if there is any needed
-    // for example:
-    // logLevel: process.env.REST_TOOL_LOG_LEVEL || defaults.logLevel
-    // ...
 }

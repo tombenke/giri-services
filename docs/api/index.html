@@ -44,63 +44,89 @@
 
     <section>
         <article><h1>giri-services</h1>
-<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/stable.svg" alt="stable"></a><br>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/unstable.svg" alt="unstable"></a><br>
 <a href="https://badge.fury.io/js/giri-services"><img src="https://badge.fury.io/js/giri-services.svg" alt="npm version"></a><br>
 <a href="https://travis-ci.org/tombenke/giri-services"><img src="https://api.travis-ci.org/tombenke/giri-services.svg" alt="Build Status"></a><br>
 <a href="https://coveralls.io/github/tombenke/giri-services?branch=master"><img src="https://coveralls.io/repos/github/tombenke/giri-services/badge.svg?branch=master" alt="Coveralls"></a></p>
 <h2>About</h2>
-<p>Project archetype for Command Line tools using Node.js</p>
-<p>It provides only one simple command, that is: <code>echo</code>, that echoes back it s only one parameter:</p>
-<pre class="prettyprint source lang-bash"><code>    giri-services echo -t Hi
-</code></pre>
+<p>This application provides the backend services of the giri system.</p>
+<p>It is a standalone application that holds the REST endpoint implementations of the giri backend services.</p>
 <h2>Installation</h2>
 <p>Run the install command:</p>
 <pre><code>npm install -g giri-services
 </code></pre>
 <p>Check if giri-services is properly installed:</p>
-<pre><code>$ giri-services --help
+<pre class="prettyprint source lang-bash"><code>    $ giri-services --help
+
+    Options:
+      --version        Show version number                                 [boolean]
+      --config, -c     The name of the configuration file    [default: &quot;config.yml&quot;]
+      --logLevel, -l   The log level                      [string] [default: &quot;info&quot;]
+      --logFormat, -t  The log (`plainText` or `json`)
+                                                     [string] [default: &quot;plainText&quot;]
+      --help           Show help                                           [boolean]
 </code></pre>
-<h2>Get Help</h2>
-<p>To learn more about the tool visit the <a href="http://tombenke.github.io/giri-services/">homepage</a>.</p>
-<h2>Generate new CLI tool from this archetype</h2>
-<p>This project can be used to generate a new CLI project too,<br>
-using the <a href="https://github.com/tombenke/kickoff">kickoff</a> utility.</p>
-<p>In order to generate a new CLI project, do the following:</p>
-<ol>
-<li>Install the <a href="https://github.com/tombenke/kickoff">kickoff</a> utility, if you have not installed yet:</li>
-</ol>
-<pre class="prettyprint source lang-bash"><code>    npm install -g kickoff
-</code></pre>
-<ol start="2">
-<li>Create a new CLI project:</li>
-</ol>
-<pre class="prettyprint source lang-bash"><code>    kickoff -s tombenke/giri-services -d new-cli-app
-</code></pre>
-<ol start="3">
-<li>Finish the configuration of the new project, test and build it:</li>
-</ol>
-<pre class="prettyprint source lang-bash"><code>    cd new-cli-app
-    sh ./.kickoff.sh
-    npm install
-    npm run test
-    npm run build
-</code></pre>
-<ol start="4">
-<li>Check if it works properly:</li>
-</ol>
-<pre class="prettyprint source lang-bash"><code>    node dist/app.js echo --text Hi
-</code></pre>
-<p>You should see something like this:</p>
-<pre class="prettyprint source lang-bash"><code>    info: echo.execute => Hi
-</code></pre>
-<ol start="5">
-<li>Now the project is ready, so you can extend it, according to your needs.</li>
-</ol>
-<h2>References</h2>
+<h2>Configuration</h2>
+<h4>General server parameters</h4>
+<p><code>giri-services</code> can be configured via:</p>
 <ul>
-<li><a href="http://tombenke.github.io/npac">npac</a>.</li>
-<li><a href="http://tombenke.github.io/npac-example-cli">npac-example-cli</a>.</li>
-</ul></article>
+<li>configuration file,</li>
+<li>environment variables,</li>
+<li>command line arguments,</li>
+<li>the combination of these above.</li>
+</ul>
+<p>Dump the effective configuration object, before start:</p>
+<ul>
+<li>CLI parameter: <code>-d [true]</code>, or <code>--dumpConfig [true]</code>.</li>
+</ul>
+<h4>Logging</h4>
+<p>Set the log level of the server and its internal components:</p>
+<ul>
+<li>CLI parameter: <code>-l &lt;level&gt;</code>, or <code>logLevel &lt;level&gt;</code></li>
+<li>Environment: <code>LOG_LEVEL</code>.</li>
+<li>Config object property: <code>logger.level</code>.</li>
+<li>Possible values: <code>info</code>, <code>debug</code>, <code>warn</code>, <code>error</code>.</li>
+<li>Default value: <code>info</code>.</li>
+</ul>
+<p>Set the log format of the server and its internal components:</p>
+<ul>
+<li>CLI parameter: <code>-t &lt;format&gt;</code>, or <code>--logFormat &lt;format&gt;</code>.</li>
+<li>Environment: <code>LOG_FORMAT</code>.</li>
+<li>Config object property: <code>logger.transports.console.format</code>.</li>
+<li>Possible values: <code>plainText</code>, <code>json</code>.</li>
+<li>Default value: <code>plainText</code>.</li>
+</ul>
+<h4>PDMS (NATS) Gateway</h4>
+<p>Define the URI of the NATS server used by the pdms adapter:</p>
+<ul>
+<li>CLI parameter: <code>-n &lt;nats-uri&gt;</code>, or <code>--natsUri &lt;nats-uri&gt;</code>.</li>
+<li>Environment: <code>PDMS_NATS_URI</code>.</li>
+<li>Config object parameter: <code>pdms.natsUri</code>.</li>
+<li>Default value: <code>&quot;nats://demo.nats.io:4222&quot;</code>.</li>
+</ul>
+<p>Define the NATS timeout value:</p>
+<ul>
+<li>CLI parameter: TODO.</li>
+<li>Environment: <code>PDMS_TIMEOUT</code>.</li>
+<li>Config object property: <code>pdms.timeout</code>.</li>
+<li>Default value: <code>2000</code>.</li>
+</ul>
+<p>See <a href="https://www.npmjs.com/package/npac-pdms-hemera-adapter">npac-pdms-hemera-adapter</a> for further details.</p>
+<h2>Usage</h2>
+<p>Start the application:</p>
+<pre class="prettyprint source lang-bash"><code>    $ giri-services
+    2019-05-17T06:22:06.090Z [giri-services@3.2.0] info: Start up pdmsHemera
+    2019-05-17T06:22:07.663Z [giri-services@3.2.0] info: hemera: &quot;Connected!&quot;
+    2019-05-17T06:22:07.668Z [giri-services@3.2.0] info: Hemera is connected
+    2019-05-17T06:22:07.670Z [giri-services@3.2.0] info: Start up service adapter
+    2019-05-17T06:22:07.678Z [giri-services@3.2.0] info: hemera: {&quot;topic&quot;:&quot;/systems&quot;,&quot;method&quot;:&quot;get&quot;,&quot;uri&quot;:&quot;/systems&quot;}
+    2019-05-17T06:22:07.684Z [giri-services@3.2.0] info: hemera: {&quot;topic&quot;:&quot;/systems&quot;,&quot;method&quot;:&quot;post&quot;,&quot;uri&quot;:&quot;/systems&quot;}
+    2019-05-17T06:22:07.685Z [giri-services@3.2.0] info: hemera: {&quot;topic&quot;:&quot;/systems&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;uri&quot;:&quot;/systems&quot;}
+    2019-05-17T06:22:07.688Z [giri-services@3.2.0] info: App runs the jobs...
+</code></pre>
+<p>The application starts and subsribes to NATS topic. When incoming requests will be forwarded through these topics, the services will respond.</p>
+<h2>Get Help</h2>
+<p>To learn more about the functions visit the <a href="http://tombenke.github.io/giri-services/api/">source documentation</a>.</p></article>
     </section>
 
 
@@ -111,7 +137,7 @@ using the <a href="https://github.com/tombenke/kickoff">kickoff</a> utility.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#execute">execute</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config.html">config</a></li><li><a href="module-systems.html">systems</a></li><li><a href="systems.module_index.html">index</a></li><li><a href="systems.module_restEndpoints.html">restEndpoints</a></li></ul>
 </nav>
 
 <br class="clear">

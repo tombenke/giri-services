@@ -1,41 +1,16 @@
+/**
+ * The main module of the `systems` executive.
+ *
+ * This module is responsible for registering the service endpoints during the startup process.
+ *
+ * This module holds the implementation of `startup()` and `shutdown()` functions of the executive, that are responsible for doing the maintenance functions during the shutdown process of the application, e.g. registering service endpoints, initializing/closing database connections, and so on.
+ *
+ * @module systems.index
+ */
+
 import defaults from './config'
 import _ from 'lodash'
-import uuid from 'node-uuid'
-import { defaultHeaders, wrapOkResponse, wrapEmptyResponse } from '../commons'
-import { findAllSystems, findSystemById, upsertSystem, deleteAllSystems } from './systems'
-
-export const getSystems = container => (data, cb) => wrapOkResponse(findAllSystems, cb)
-
-export const deleteSystems = container => (data, cb) => wrapEmptyResponse(deleteAllSystems, cb)
-
-export const postSystems = container => (data, cb) => {
-    const { headers, body } = data.request
-    const newSystem = body
-    const { host } = headers
-
-    if (_.has(newSystem, 'id')) {
-        // The new system object has ID
-        if (findSystemById(newSystem.id) !== null) {
-            // Conflict: the system exist yet
-            cb(null, {
-                headers: {
-                    ...defaultHeaders,
-                    "Location": `http://${host}/systems/${newSystem.id}`
-                },
-                status: 409,
-                body: {
-                    error: "Conflict. The system with the given ID already exists."
-                }
-            })
-        } else {
-            // Store the new system using its predefined ID
-            wrapOkResponse(upsertSystem(newSystem), cb)
-        }
-    } else {
-        // Generate a new, unique ID then store it
-        wrapOkResponse(upsertSystem(_.extend({ id: uuid.v4() }, newSystem)), cb)
-    }
-}
+import { getSystems, postSystems, deleteSystems } from './restEndpoints'
 
 /**
  * The startup function of the adapter
@@ -55,15 +30,14 @@ const startup = (container, next) => {
     container.logger.info('Start up service adapter')
 
     // Register PDMS service(s)
-    container.pdms.add({ topic: "/systems", method: "get", uri: "/systems" }, getSystems(container))
-    container.pdms.add({ topic: "/systems", method: "post", uri: "/systems" }, postSystems(container))
-    container.pdms.add({ topic: "/systems", method: "delete", uri: "/systems" }, deleteSystems(container))
+    container.pdms.add({ topic: '/systems', method: 'get', uri: '/systems' }, getSystems(container))
+    container.pdms.add({ topic: '/systems', method: 'post', uri: '/systems' }, postSystems(container))
+    container.pdms.add({ topic: '/systems', method: 'delete', uri: '/systems' }, deleteSystems(container))
 
     // Call next setup function with the context extension
     next(null, {
         config: serviceConfig,
-        systems: {
-        }
+        systems: {}
     })
 }
 
@@ -80,7 +54,7 @@ const startup = (container, next) => {
  * @function
  */
 const shutdown = (container, next) => {
-    container.logger.info("Shut down service adapter")
+    container.logger.info('Shut down service adapter')
     next(null, null)
 }
 

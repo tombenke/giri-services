@@ -2,6 +2,5 @@
  * The default configuration for the service adapter
  */
 module.exports = {
-    service: {
-    }
+    service: {}
 }

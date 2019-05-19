@@ -78,7 +78,6 @@ Define the NATS timeout value:
 
 See [npac-pdms-hemera-adapter](https://www.npmjs.com/package/npac-pdms-hemera-adapter) for further details.
 
-
 ## Usage
 
 Start the application:
@@ -99,8 +98,7 @@ The application starts and subsribes to NATS topic. When incoming requests will 
 
 ## Get Help
 
-TODO: Write and publish the service docs
-
+To learn more about the functions visit the [source documentation](http://tombenke.github.io/giri-services/api/).
 
 [npm-badge]: https://badge.fury.io/js/giri-services.svg
 [npm-url]: https://badge.fury.io/js/giri-services

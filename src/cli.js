@@ -5,7 +5,6 @@
 const yargs = require('yargs')
 
 const parse = (defaults, processArgv = process.argv) => {
-
     const argv = yargs()
         //        .exitProcess(false)
         .option('config', {
@@ -46,8 +45,7 @@ const parse = (defaults, processArgv = process.argv) => {
         command: {
             name: 'server',
             type: 'async',
-            args: {
-            }
+            args: {}
         },
         cliConfig: {
             configFileName: argv.config,

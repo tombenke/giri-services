@@ -10,41 +10,47 @@ import { removeSignalHandlers, catchExitSignals, npacStart } from 'npac'
 import { deleteAllSystems } from './systems'
 import { testSystems } from './fixtures/'
 
-const pdmsAct = (container, method, uri, request) => new Promise((resolve, reject) => {
-    container.pdms.act({
-            topic: uri,
-            method: method,
-            uri: uri,
-            endpointDesc: {},
-            request: request
-        },
-        (err, resp) => {
-            if (err === null) {
-                resolve(resp)
+const pdmsAct = (container, method, uri, request) =>
+    new Promise((resolve, reject) => {
+        container.pdms.act(
+            {
+                topic: uri,
+                method: method,
+                uri: uri,
+                endpointDesc: {},
+                request: request
+            },
+            (err, resp) => {
+                if (err === null) {
+                    resolve(resp)
+                }
             }
-        })
+        )
     })
 
-const getSystems = container => pdmsAct(container, "get", "/systems", {
+const getSystems = container =>
+    pdmsAct(container, 'get', '/systems', {
         cookies: {},
-        headers: { "Accept": "application/json" },
+        headers: { Accept: 'application/json' },
         parameters: { query: {}, uri: {} }
     }).then(resp => {
         return Promise.resolve(resp.body)
     })
 
-const postSystems = (container, newSystem) => pdmsAct(container, "post", "/systems", {
+const postSystems = (container, newSystem) =>
+    pdmsAct(container, 'post', '/systems', {
         cookies: {},
-        headers: { "Accept": "application/json" },
+        headers: { Accept: 'application/json' },
         parameters: { query: {}, uri: {} },
         body: newSystem
     }).then(resp => {
         return Promise.resolve(resp.body)
     })
 
-const deleteSystems = container => pdmsAct(container, "delete", "/systems", {
+const deleteSystems = container =>
+    pdmsAct(container, 'delete', '/systems', {
         cookies: {},
-        headers: { "Accept": "application/json" },
+        headers: { Accept: 'application/json' },
         parameters: { query: {}, uri: {} }
     }).then(resp => {
         return Promise.resolve()
@@ -66,20 +72,14 @@ describe('systems', () => {
         done()
     })
 
-    const config = _.merge({}, defaults, { /* Add command specific config parameters */ })
-    const adapters = [
-        npac.mergeConfig(config),
-        npac.addLogger,
-        pdms.startup,
-        systems.startup
-    ]
+    const config = _.merge({}, defaults, {
+        /* Add command specific config parameters */
+    })
+    const adapters = [npac.mergeConfig(config), npac.addLogger, pdms.startup, systems.startup]
 
-    const terminators = [
-        systems.shutdown,
-        pdms.shutdown
-    ]
+    const terminators = [systems.shutdown, pdms.shutdown]
 
-    it('#getSystems', (done) => {
+    it('#getSystems', done => {
         catchExitSignals(sandbox, done)
 
         const testJob = (container, next) => {
@@ -92,7 +92,7 @@ describe('systems', () => {
         npacStart(adapters, [testJob], terminators)
     }).timeout(10000)
 
-    it('#postSystems - create new system with no ID', (done) => {
+    it('#postSystems - create new system with no ID', done => {
         catchExitSignals(sandbox, done)
 
         const testJob = (container, next) => {
@@ -106,7 +106,7 @@ describe('systems', () => {
         npacStart(adapters, [testJob], terminators)
     }).timeout(10000)
 
-    it('#postSystems - create new system with ID', (done) => {
+    it('#postSystems - create new system with ID', done => {
         catchExitSignals(sandbox, done)
 
         const testJob = (container, next) => {
@@ -121,7 +121,7 @@ describe('systems', () => {
         npacStart(adapters, [testJob], terminators)
     }).timeout(10000)
 
-    it('#postSystems - conflict, system exits yet', (done) => {
+    it('#postSystems - conflict, system exits yet', done => {
         catchExitSignals(sandbox, done)
 
         const testJob = (container, next) => {
@@ -137,7 +137,7 @@ describe('systems', () => {
         npacStart(adapters, [testJob], terminators)
     }).timeout(10000)
 
-    it('#deleteSystems', (done) => {
+    it('#deleteSystems', done => {
         catchExitSignals(sandbox, done)
 
         const testJob = (container, next) => {

@@ -4,7 +4,6 @@ import { deleteAllSystems, findAllSystems, upsertSystem, findSystemById } from '
 import { testSystems } from './fixtures/'
 
 describe('systems.systems', () => {
-
     beforeEach(done => {
         deleteAllSystems()
         done()
